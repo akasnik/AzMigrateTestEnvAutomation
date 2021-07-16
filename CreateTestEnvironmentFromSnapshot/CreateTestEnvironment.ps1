@@ -1,10 +1,9 @@
-$existingDCRG = 'rg-lab-azure-files-sync-dc'
-$testEnvironmentRG = 'rg-contoso-testenvironment'
+$testEnvironmentRG = 'rg-contoso-testenvironment' # Name of RG to deploy test environment to
+$existingDCRG = 'rg-lab-azure-files-sync-dc' # Name of RG where existing DC is deployed
 $location = 'westeurope'
-$dcVMName = 'adVM'
-$restoreStorageAccountName = 'sacontosorestore160721'
-$testVnetName = 'vnet-contoso-isolated-test'
-$dcSubnetName = 'dcSubnet'
+$dcVMName = 'adVM' # Name of existing DC VM
+$testVnetName = 'vnet-contoso-isolated-test' # Name of test VNet
+$dcSubnetName = 'dcSubnet' # Name of subnet to hold recovered DC
 
 # Create required resources
 Get-AzResourceGroup -Name $testEnvironmentRG -ErrorVariable RGNotPresent -ErrorAction SilentlyContinue
@@ -14,15 +13,6 @@ if ($RGNotPresent)
 {
     New-AzResourceGroup -Name $testEnvironmentRG -Location $location
 }
-
-# Create recovery stirage account if not exists
-Get-AzStorageAccount -Name $restoreStorageAccountName -ResourceGroupName $testEnvironmentRG -ErrorVariable SANotPresent -ErrorAction SilentlyContinue 
-
-if ($SANotPresent)
-{
-    New-AzStorageAccount -Name $restoreStorageAccountName -Location $location -ResourceGroupName $testEnvironmentRG -SkuName Standard_LRS -Kind StorageV2 
-}
-
 
 function CreateDisk {
     param (

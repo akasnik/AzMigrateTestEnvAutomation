@@ -1,12 +1,12 @@
-$testEnvironmentRG = 'rg-contoso-testenvironment'
+$testEnvironmentRG = 'rg-contoso-testenvironment' # Name of RG to deploy test environment to
 $location = 'westeurope'
-$backupVaultName = 'rsv-azfiles-1'
-$backupVaultRG = 'rg-lab-azure-files-sync-dc'
-$dcVMName = 'adVM'
-$restoreStorageAccountName = 'sacontosorestore120721'
-$testVnetName = 'vnet-contoso-isolated-test'
-$dcSubnetName = 'dcSubnet'
-$avSetName = 'avSetDCTest'
+$backupVaultName = 'rsv-with-dc-backup' # Name of Recovery Services Vault holding backup of DC
+$backupVaultRG = 'rg-rsv-with-dc-backup' # Name of RG where Recovery Services Vault is deployed
+$dcVMName = 'adVM' # Name of existing DC VM
+$restoreStorageAccountName = 'sacontosorestore120721' # Name of Storage Account to use for recovery operations
+$testVnetName = 'vnet-contoso-isolated-test' # Name of test VNet
+$dcSubnetName = 'dcSubnet' # Name of subnet to hold recovered DC
+$avSetName = 'avSetDCTest' # Name of Availability Set to deploy recovered DC to
 
 # Create required resources
 Get-AzResourceGroup -Name $testEnvironmentRG -ErrorVariable RGNotPresent -ErrorAction SilentlyContinue
